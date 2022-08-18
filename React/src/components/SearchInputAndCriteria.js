@@ -113,6 +113,7 @@ export const SearchInputAndCriteria = () => {
 
   function inputClicked() {
     setValues((values) => ({ ...values, clickInInputField: true }));
+    createButtons(values);
   }
 
   function createSelect(selected) {
@@ -137,7 +138,7 @@ export const SearchInputAndCriteria = () => {
     ]
       .filter((x, i) => i < numberOfButtons)
       .map((x) =>
-        Number(x.value) === page.page
+        Number(x.value) === Number(page.page)
           ? { ...x, className: "page-active-button" }
           : { ...x, className: "page-button" }
       );
@@ -145,83 +146,89 @@ export const SearchInputAndCriteria = () => {
 
   return (
     <form className="form">
-      {/* <label
-        className={
-          values?.clickInInputField ? "active-input" : "inactive-input"
-        }
-      >
-        Enter Keyword
-      </label> */}
-      <input
-        type="text"
-        className="input"
-        name="input"
-        placeholder="Enter Keyword"
-        onChange={changeHandler}
-        onClick={inputClicked}
-        value={values.input}
-      ></input>
-
-      <div className="page" onClick={changeHandler}>
-        {buttons.map((x, i) => (
-          <button
-            key={i * 6}
-            type="button"
-            name={x.name}
-            value={x.value}
-            className={x.className}
+      <div className="outer">
+        <div className="input-wrapper">
+          <label
+            className={
+              values?.clickInInputField ? "active-input" : "inactive-input"
+            }
           >
-            {x?.content}
-          </button>
-        ))}
+            Enter Keyword
+          </label>
+          <input
+            type="text"
+            className="input"
+            name="input"
+            // placeholder="Enter Keyword"
+            onChange={changeHandler}
+            onClick={inputClicked}
+            value={values.input}
+          ></input>
+        </div>
       </div>
 
-      <div className="changers">
-        {values.left !== 1 ? (
-          <button
-            type="button"
-            className="changers-button"
-            name="left"
-            onClick={valueChange}
-          >
-            {"<"}
-          </button>
-        ) : null}
-        {values.right !== 1 ? (
-          <button
-            type="button"
-            className="changers-button"
-            name="right"
-            onClick={valueChange}
-          >
-            {">"}
-          </button>
-        ) : null}
-      </div>
+      <div className="input-button-wrapper">
+        <div className="page" onClick={changeHandler}>
+          {buttons.map((x, i) => (
+            <button
+              key={i * 6}
+              type="button"
+              name={x.name}
+              value={x.value}
+              className={x.className}
+            >
+              {x?.content}
+            </button>
+          ))}
+        </div>
 
-      <div
-        className="select"
-        onChange={changeHandler}
-        defaultValue={values.select}
-      >
-        <select className="inner-select">
-          {selectOptions.map((x) =>
-            x.selected === "selected" ? (
-              <option
-                key={x.value * 12}
-                name={x.name}
-                value={x.value}
-                selected={true}
-              >
-                {x.content}
-              </option>
-            ) : (
-              <option key={x.value * 12} name={x.name} value={x.value}>
-                {x.content}
-              </option>
-            )
-          )}
-        </select>
+        <div className="changers">
+          {values.left !== 1 ? (
+            <button
+              type="button"
+              className="changers-button"
+              name="left"
+              onClick={valueChange}
+            >
+              {"<"}
+            </button>
+          ) : null}
+          {values.right !== 1 ? (
+            <button
+              type="button"
+              className="changers-button"
+              name="right"
+              onClick={valueChange}
+            >
+              {">"}
+            </button>
+          ) : null}
+        </div>
+
+        <div
+          className="select"
+          onChange={changeHandler}
+          defaultValue={values.select}
+        >
+          <select className="inner-select">
+            {selectOptions.map((x) =>
+              x.selected === "selected" ? (
+                <option
+                  key={x.value * 12}
+                  name={x.name}
+                  value={x.value}
+                  selected={true}
+                >
+                  {x.content}
+                </option>
+              ) : (
+                <option key={x.value * 12} name={x.name} value={x.value}>
+                  {x.content}
+                </option>
+              )
+            )}
+          </select>
+        </div>
       </div>
     </form>
   );
