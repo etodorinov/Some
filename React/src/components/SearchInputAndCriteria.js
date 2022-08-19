@@ -76,8 +76,9 @@ export const SearchInputAndCriteria = () => {
         clickInInputField: false,
         [e.target.name]: e.target.value,
       }));
+
+      createButtons(values.page);
     } else {
-      // e.target.className = "page-button-pressed";
       setValues((values) => ({
         ...values,
         clickInInputField: false,
@@ -109,11 +110,6 @@ export const SearchInputAndCriteria = () => {
       }));
       createButtons(values.page);
     }
-  }
-
-  function inputClicked() {
-    setValues((values) => ({ ...values, clickInInputField: true }));
-    createButtons(values.page);
   }
 
   function createSelect(selected) {
@@ -159,7 +155,6 @@ export const SearchInputAndCriteria = () => {
         name="input"
         placeholder="Enter Keyword"
         onChange={changeHandler}
-        onClick={inputClicked}
         value={values.input}
       ></input>
 
